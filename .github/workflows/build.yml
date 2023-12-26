@@ -1,0 +1,14 @@
+name: Gradle Build
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  call-build:
+    uses: trevorism/actions-workflows/.github/workflows/build.yml@master
+    with:
+      JDK_VERSION: 17
