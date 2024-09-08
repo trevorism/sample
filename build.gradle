@@ -10,7 +10,7 @@ buildscript {
 plugins {
     id("groovy")
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.2.1"
+    id("io.micronaut.application") version "4.4.2"
     id("jacoco")
 }
 
@@ -31,7 +31,7 @@ dependencies {
     runtimeOnly("org.yaml:snakeyaml")
 
     implementation("jakarta.annotation:jakarta.annotation-api")
-    implementation 'io.projectreactor:reactor-core:3.6.0'
+    implementation 'io.projectreactor:reactor-core:3.6.9'
 
     implementation("io.swagger.core.v3:swagger-annotations")
     compileOnly("io.micronaut.openapi:micronaut-openapi"){
@@ -39,10 +39,9 @@ dependencies {
     }
 
     runtimeOnly("ch.qos.logback:logback-classic")
-    implementation 'org.slf4j:slf4j-simple:2.0.9'
 
-    implementation 'com.trevorism:micronaut-utility-beans:1.2.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.trevorism:micronaut-utility-beans:1.6.0'
+    implementation 'com.google.code.gson:gson:2.11.0'
 
     testImplementation 'io.cucumber:cucumber-groovy:6.10.4'
 }
@@ -65,3 +64,15 @@ tasks.withType(GroovyCompile) {
     groovyOptions.forkOptions.jvmArgs.add('-Dgroovy.parameters=true')
     groovyOptions.forkOptions.jvmArgs.add('-Dmicronaut.openapi.views.spec=rapidoc.enabled=false,swagger-ui.enabled=true,swagger-ui.theme=flattop')
 }
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.5
+            }
+        }
+    }
+}
+
+build.dependsOn jacocoTestCoverageVerification
